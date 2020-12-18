@@ -3,17 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "description": "yyui-spinner is loading component.",
+  "main": "dist/yyui.spinner.js",
   "files": [
     "src",
     "dist"
   ],
   "sideEffects": false,
   "scripts": {
-    "start": "npm run build:cjs",
-    "build:es": "rollup -w -c scripts/build.js --environment TARGET:esm",
-    "build:cjs": "rollup -w -c scripts/build.js --environment TARGET:cjs",
-    "build:umd": "rollup -w -c scripts/build.js --environment TARGET:umd",
-    "build:esm:browser": "rollup -w -c scripts/build.js --environment TARGET:esm-browser"
+    "start": "npm run build:umd",
+    "build:esm": "rollup -c scripts/build.js --environment TARGET:esm",
+    "build:umd": "rollup -c scripts/build.js --environment TARGET:umd"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -29,7 +28,9 @@
     "url": "git+https://github.com/zmkn/yyui-spinner.git"
   },
   "keywords": [
-    "yyui"
+    "yyui",
+    "spinner",
+    "yyui-spinner"
   ],
   "author": "HZ",
   "license": "MIT",
@@ -37,9 +38,7 @@
     "url": "https://github.com/zmkn/yyui-spinner/issues"
   },
   "homepage": "https://github.com/zmkn/yyui-spinner#readme",
-  "dependencies": {
-    "vue": "^2.6.12"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -48,8 +47,11 @@
     "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@babel/plugin-syntax-bigint": "^7.8.3",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/register": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "@rollup/pluginutils": "^4.1.0",
     "@rollup/plugin-url": "^6.0.0",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-alias": "^3.1.1",

@@ -1,9 +1,5 @@
-import {
-  SpinnerComponent
-} from './spinner.component.js';
-import {
-  SpinnerOverlayComponent
-} from './spinner.overlay.component.js';
+import { SpinnerComponent } from "./spinner.component.js";
+import { SpinnerOverlayComponent } from "./spinner.overlay.component.js";
 
 export class Spinner {
   #window = window;
@@ -14,15 +10,15 @@ export class Spinner {
     status: false,
     mountTimestamp: 0,
     unmountTimestamp: 0
-  }
+  };
 
   #options = {
     overlay: true
-  }
+  };
 
   static options = {
     overlay: true
-  }
+  };
 
   static clear = () => {
     const instanceAll = this.instanceAll;
@@ -30,7 +26,7 @@ export class Spinner {
       instanceAll[0].unmount();
       instanceAll.splice(0, 1);
     }
-  }
+  };
 
   static instanceAll = [];
 
@@ -39,32 +35,41 @@ export class Spinner {
     if (this.#options.overlay) {
       let overlayName = this.#options.overlay;
       const spinnerOverlayElement = new SpinnerOverlayComponent();
-      if ({}.toString.call(overlayName) !== '[object String]') {
-        overlayName = 'default';
+      if ({}.toString.call(overlayName) !== "[object String]") {
+        overlayName = "default";
       }
-      spinnerOverlayElement.setAttribute('class', `spinner-overlay-${overlayName}`);
+      spinnerOverlayElement.setAttribute(
+        "class",
+        `spinner-overlay-${overlayName}`
+      );
       spinnerOverlayElement.appendChild(spinnerElement);
       return spinnerOverlayElement;
     } else {
       return spinnerElement;
     }
-  }
+  };
 
-  #connect = (spinnerElement) => {
+  #connect = spinnerElement => {
     this.#spinnerElement = spinnerElement;
     return spinnerElement;
-  }
+  };
 
   #register = () => {
-    if (!this.#window.customElements.get('yy-spinner-component')) {
-      this.#window.customElements.define('yy-spinner-component', SpinnerComponent);
+    if (!this.#window.customElements.get("yy-spinner-component")) {
+      this.#window.customElements.define(
+        "yy-spinner-component",
+        SpinnerComponent
+      );
     }
     if (this.#options.overlay) {
-      if (!this.#window.customElements.get('yy-spinner-overlay-component')) {
-        this.#window.customElements.define('yy-spinner-overlay-component', SpinnerOverlayComponent);
+      if (!this.#window.customElements.get("yy-spinner-overlay-component")) {
+        this.#window.customElements.define(
+          "yy-spinner-overlay-component",
+          SpinnerOverlayComponent
+        );
       }
     }
-  }
+  };
 
   constructor(options = {}) {
     this.#options = Object.assign(this.#options, Spinner.options, options);
@@ -79,7 +84,7 @@ export class Spinner {
         if (!this.#spinnerElement.parent()) {
           this.#document.body.appendChild(this.#spinnerElement);
         }
-      }
+      };
       this.#mount.status = true;
       clearTimeout(this.#mount.mountTimestamp);
       clearTimeout(this.#mount.unmountTimestamp);
@@ -100,7 +105,7 @@ export class Spinner {
         if (this.#spinnerElement.parent()) {
           this.#spinnerElement.parent().removeChild(this.#spinnerElement);
         }
-      }
+      };
       this.#mount.status = false;
       clearTimeout(this.#mount.mountTimestamp);
       clearTimeout(this.#mount.unmountTimestamp);

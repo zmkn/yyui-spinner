@@ -1,13 +1,11 @@
-const path = require("path");
-const url = require("@rollup/plugin-url");
-const babel = require("@rollup/plugin-babel");
-const buble = require("@rollup/plugin-buble");
-const alias = require("@rollup/plugin-alias");
-const cjs = require("@rollup/plugin-commonjs");
-const node = require("@rollup/plugin-node-resolve");
-const aliases = require("./alias.js");
-
-console.log(process.env.TARGET, node);
+import path from "path";
+import buble from "@rollup/plugin-buble";
+import alias from "@rollup/plugin-alias";
+import commonjs from "@rollup/plugin-commonjs";
+import { babel } from "@rollup/plugin-babel";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import aliases from "./alias.js";
+import string from "./string.js";
 
 const resolve = p => {
   const base = p.split("/")[0];
@@ -22,42 +20,38 @@ const builds = {
   esm: {
     entry: resolve("core/index.js"),
     dest: resolve("dist/yyui.spinner.esm.js"),
-    format: "es"
-  },
-  cjs: {
-    entry: resolve("core/index.js"),
-    dest: resolve("dist/yyui.spinner.cjs.js"),
-    format: "cjs"
+    format: "esm"
   },
   umd: {
     entry: resolve("core/index.js"),
     dest: resolve("dist/yyui.spinner.js"),
     format: "umd",
-    plugins: [node(), cjs()]
-  },
-  "esm-browser": {
-    entry: resolve("core/index.js"),
-    dest: resolve("dist/yyui.spinner.esm.browser.js"),
-    format: "es",
-    transpile: false
+    plugins: [nodeResolve(), commonjs()]
   }
 };
 
 const getConfig = name => {
-  const build = builds[name];
+  const options = builds[name];
   const config = {
-    input: build.entry,
-    plugins: [url(), babel(), alias(Object.assign({}, aliases))].concat(
-      build.plugins || []
-    ),
+    input: options.entry,
+    plugins: [
+      string(),
+      alias({
+        entries: Object.assign({}, aliases)
+      }),
+      babel({
+        exclude: ["**/node_modules/**"],
+        presets: ["@babel/preset-env"],
+        babelHelpers: "bundled"
+      }),
+      buble()
+    ].concat(options.plugins || []),
     output: {
-      file: build.dest,
-      format: build.format
+      file: options.dest,
+      format: options.format,
+      name: options.moduleName || "Spinner"
     }
   };
-  if (build.transpile !== false) {
-    config.plugins.push(buble());
-  }
   return config;
 };
 

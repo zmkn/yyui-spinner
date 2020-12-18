@@ -51,10 +51,10 @@
   border-width: 2px;
   border-bottom-color: transparent;
   border-radius: 100%;
-  -webkit-animation: ball-clip-rotate .75s linear infinite;
-  -moz-animation: ball-clip-rotate .75s linear infinite;
-  -o-animation: ball-clip-rotate .75s linear infinite;
-  animation: ball-clip-rotate .75s linear infinite;
+  -webkit-animation: ball-clip-rotate 0.75s linear infinite;
+  -moz-animation: ball-clip-rotate 0.75s linear infinite;
+  -o-animation: ball-clip-rotate 0.75s linear infinite;
+  animation: ball-clip-rotate 0.75s linear infinite;
 }
 
 .la-ball-clip-rotate.la-sm {

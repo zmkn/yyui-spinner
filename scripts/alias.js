@@ -1,7 +1,7 @@
-const path = require("path");
+import path from "path";
 
 const resolve = p => path.resolve(__dirname, "../", p);
 
-module.exports = {
+export default {
   core: resolve("src/core")
 };

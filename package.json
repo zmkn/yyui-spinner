@@ -10,7 +10,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "start": "npm run build:umd:min",
+    "start": "npm run build:umd",
     "build:esm": "rollup -c scripts/build.js --environment TARGET:esm",
     "build:umd": "rollup -c scripts/build.js --environment TARGET:umd",
     "build:esm:min": "rollup -c scripts/build.js --environment TARGET:esm-min",

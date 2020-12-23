@@ -21,7 +21,7 @@ export class Spinner {
   };
 
   static clear = () => {
-    const instanceAll = this.instanceAll;
+    const instanceAll = Spinner.instanceAll;
     while (instanceAll.length > 0) {
       instanceAll[0].unmount();
       instanceAll.splice(0, 1);

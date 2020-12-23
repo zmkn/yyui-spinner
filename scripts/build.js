@@ -4,6 +4,7 @@ import alias from "@rollup/plugin-alias";
 import commonjs from "@rollup/plugin-commonjs";
 import { babel } from "@rollup/plugin-babel";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import { terser } from "rollup-plugin-terser";
 import aliases from "./alias.js";
 import string from "./string.js";
 
@@ -27,6 +28,18 @@ const builds = {
     dest: resolve("dist/yyui.spinner.js"),
     format: "umd",
     plugins: [nodeResolve(), commonjs()]
+  },
+  "esm-min": {
+    entry: resolve("core/index.js"),
+    dest: resolve("dist/yyui.spinner.esm.min.js"),
+    format: "esm",
+    plugins: [terser()]
+  },
+  "umd-min": {
+    entry: resolve("core/index.js"),
+    dest: resolve("dist/yyui.spinner.min.js"),
+    format: "umd",
+    plugins: [nodeResolve(), commonjs(), terser()]
   }
 };
 

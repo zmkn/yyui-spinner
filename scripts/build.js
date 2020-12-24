@@ -1,7 +1,5 @@
 import path from "path";
-import buble from "@rollup/plugin-buble";
 import alias from "@rollup/plugin-alias";
-import commonjs from "@rollup/plugin-commonjs";
 import { babel } from "@rollup/plugin-babel";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
@@ -23,11 +21,15 @@ const builds = {
     dest: resolve("dist/yyui.spinner.esm.js"),
     format: "esm"
   },
+  cjs: {
+    entry: resolve("core/index.js"),
+    dest: resolve("dist/yyui.spinner.cjs.js"),
+    format: "cjs"
+  },
   umd: {
     entry: resolve("core/index.js"),
     dest: resolve("dist/yyui.spinner.js"),
-    format: "umd",
-    plugins: [nodeResolve(), commonjs()]
+    format: "umd"
   },
   "esm-min": {
     entry: resolve("core/index.js"),
@@ -35,11 +37,17 @@ const builds = {
     format: "esm",
     plugins: [terser()]
   },
+  "cjs-min": {
+    entry: resolve("core/index.js"),
+    dest: resolve("dist/yyui.spinner.cjs.min.js"),
+    format: "cjs",
+    plugins: [terser()]
+  },
   "umd-min": {
     entry: resolve("core/index.js"),
     dest: resolve("dist/yyui.spinner.min.js"),
     format: "umd",
-    plugins: [nodeResolve(), commonjs(), terser()]
+    plugins: [terser()]
   }
 };
 
@@ -48,22 +56,23 @@ const getConfig = name => {
   const config = {
     input: options.entry,
     plugins: [
+      nodeResolve(),
       string(),
       alias({
         entries: Object.assign({}, aliases)
       }),
       babel({
-        exclude: ["**/node_modules/**"],
-        presets: ["@babel/preset-env"],
-        babelHelpers: "bundled"
-      }),
-      buble()
+        exclude: [/node_modules/, /@babel\/runtime/],
+        babelHelpers: "runtime"
+      })
     ].concat(options.plugins || []),
-    output: {
-      file: options.dest,
-      format: options.format,
-      name: options.moduleName || "Spinner"
-    }
+    output: [
+      {
+        file: options.dest,
+        format: options.format,
+        name: options.moduleName || "Spinner"
+      }
+    ]
   };
   return config;
 };

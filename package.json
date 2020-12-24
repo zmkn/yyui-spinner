@@ -4,6 +4,7 @@
   "private": true,
   "description": "yyui-spinner is loading component.",
   "main": "dist/yyui.spinner.js",
+  "module": "dist/yyui.spinner.esm.js",
   "files": [
     "src",
     "dist"
@@ -12,8 +13,10 @@
   "scripts": {
     "start": "npm run build:umd",
     "build:esm": "rollup -c scripts/build.js --environment TARGET:esm",
+    "build:cjs": "rollup -c scripts/build.js --environment TARGET:cjs",
     "build:umd": "rollup -c scripts/build.js --environment TARGET:umd",
     "build:esm:min": "rollup -c scripts/build.js --environment TARGET:esm-min",
+    "build:cjs:min": "rollup -c scripts/build.js --environment TARGET:cjs-min",
     "build:umd:min": "rollup -c scripts/build.js --environment TARGET:umd-min"
   },
   "gitHooks": {
@@ -55,8 +58,8 @@
     "@babel/runtime": "^7.12.5",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^2.3.4",
     "@rollup/plugin-url": "^6.0.0",

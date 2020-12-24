@@ -1,3 +1,7 @@
+/**
+ * 导出字符串插件
+ */
+
 import { createFilter } from "@rollup/pluginutils";
 
 export default function string(options = {}) {

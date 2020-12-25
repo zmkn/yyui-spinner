@@ -7,7 +7,10 @@ module.exports = {
     "@babel/plugin-proposal-private-methods",
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-syntax-bigint",
-    ["@babel/plugin-transform-runtime", { useESModules: true }]
+    [
+      "@babel/plugin-transform-runtime",
+      { corejs: false, helpers: true, regenerator: true, useESModules: true }
+    ]
   ],
   ignore: ["dist"]
 };

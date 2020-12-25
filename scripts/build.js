@@ -18,36 +18,36 @@ const resolve = p => {
 
 const builds = {
   esm: {
-    entry: resolve("core/spinner.js"),
-    dest: resolve("dist/yyui.spinner.esm.js"),
-    format: "esm"
+    input: resolve("core/spinner.js"),
+    format: "esm",
+    outputFile: resolve("dist/yyui.spinner.esm.js")
   },
   cjs: {
-    entry: resolve("core/spinner.js"),
-    dest: resolve("dist/yyui.spinner.cjs.js"),
-    format: "cjs"
+    input: resolve("core/spinner.js"),
+    format: "cjs",
+    outputFile: resolve("dist/yyui.spinner.cjs.js")
   },
   umd: {
-    entry: resolve("core/spinner.js"),
-    dest: resolve("dist/yyui.spinner.js"),
-    format: "umd"
+    input: resolve("core/spinner.js"),
+    format: "umd",
+    outputFile: resolve("dist/yyui.spinner.js")
   },
   "esm-min": {
-    entry: resolve("core/spinner.js"),
-    dest: resolve("dist/yyui.spinner.esm.min.js"),
+    input: resolve("core/spinner.js"),
     format: "esm",
+    outputFile: resolve("dist/yyui.spinner.esm.min.js"),
     plugins: [terser()]
   },
   "cjs-min": {
-    entry: resolve("core/spinner.js"),
-    dest: resolve("dist/yyui.spinner.cjs.min.js"),
+    input: resolve("core/spinner.js"),
     format: "cjs",
+    outputFile: resolve("dist/yyui.spinner.cjs.min.js"),
     plugins: [terser()]
   },
   "umd-min": {
-    entry: resolve("core/spinner.js"),
-    dest: resolve("dist/yyui.spinner.min.js"),
+    input: resolve("core/spinner.js"),
     format: "umd",
+    outputFile: resolve("dist/yyui.spinner.min.js"),
     plugins: [terser()]
   }
 };
@@ -55,7 +55,7 @@ const builds = {
 const getConfig = name => {
   const options = builds[name];
   const config = {
-    input: options.entry,
+    input: options.input,
     plugins: [
       nodeResolve(),
       commonjs(),
@@ -70,7 +70,7 @@ const getConfig = name => {
     ].concat(options.plugins || []),
     output: [
       {
-        file: options.dest,
+        file: options.outputFile,
         format: options.format,
         name: options.moduleName || "Spinner"
       }

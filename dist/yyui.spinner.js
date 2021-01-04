@@ -41,6 +41,57 @@
     return obj;
   }
 
+  function _classPrivateFieldSet(receiver, privateMap, value) {
+    var descriptor = privateMap.get(receiver);
+
+    if (!descriptor) {
+      throw new TypeError("attempted to set private field on non-instance");
+    }
+
+    if (descriptor.set) {
+      descriptor.set.call(receiver, value);
+    } else {
+      if (!descriptor.writable) {
+        throw new TypeError("attempted to set read only private field");
+      }
+
+      descriptor.value = value;
+    }
+
+    return value;
+  }
+
+  function _classPrivateFieldGet(receiver, privateMap) {
+    var descriptor = privateMap.get(receiver);
+
+    if (!descriptor) {
+      throw new TypeError("attempted to get private field on non-instance");
+    }
+
+    if (descriptor.get) {
+      return descriptor.get.call(receiver);
+    }
+
+    return descriptor.value;
+  }
+
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
   function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
       throw new TypeError("Super expression must either be null or a function");
@@ -56,6 +107,30 @@
     if (superClass) _setPrototypeOf(subClass, superClass);
   }
 
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function _typeof(obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function _typeof(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (call && (_typeof(call) === "object" || typeof call === "function")) {
+      return call;
+    }
+
+    return _assertThisInitialized(self);
+  }
+
   function _getPrototypeOf(o) {
     _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
       return o.__proto__ || Object.getPrototypeOf(o);
@@ -63,13 +138,8 @@
     return _getPrototypeOf(o);
   }
 
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
+  function _isNativeFunction(fn) {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
   }
 
   function _isNativeReflectConstruct() {
@@ -100,10 +170,6 @@
     }
 
     return _construct.apply(null, arguments);
-  }
-
-  function _isNativeFunction(fn) {
-    return Function.toString.call(fn).indexOf("[native code]") !== -1;
   }
 
   function _wrapNativeSuper(Class) {
@@ -140,78 +206,13 @@
     return _wrapNativeSuper(Class);
   }
 
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
-    }
-
-    return _assertThisInitialized(self);
-  }
-
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-          result;
-
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
-
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
-      }
-
-      return _possibleConstructorReturn(this, result);
-    };
-  }
-
-  function _classPrivateFieldGet(receiver, privateMap) {
-    var descriptor = privateMap.get(receiver);
-
-    if (!descriptor) {
-      throw new TypeError("attempted to get private field on non-instance");
-    }
-
-    if (descriptor.get) {
-      return descriptor.get.call(receiver);
-    }
-
-    return descriptor.value;
-  }
-
-  function _classPrivateFieldSet(receiver, privateMap, value) {
-    var descriptor = privateMap.get(receiver);
-
-    if (!descriptor) {
-      throw new TypeError("attempted to set private field on non-instance");
-    }
-
-    if (descriptor.set) {
-      descriptor.set.call(receiver, value);
-    } else {
-      if (!descriptor.writable) {
-        throw new TypeError("attempted to set read only private field");
-      }
-
-      descriptor.value = value;
-    }
-
-    return value;
-  }
-
   var spinnerStyle = "/*\r\n  spinner.component\r\n*/\r\n:host {\r\n  top: 50%;\r\n  left: 50%;\r\n  position: fixed;\r\n  transform: translate(-50%, -50%);\r\n  z-index: 9999;\r\n}\r\n\r\n/*!\r\n * Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)\r\n * Copyright 2015 Daniel Cardoso <@DanielCardoso>\r\n * Licensed under MIT\r\n */\r\n.la-ball-clip-rotate,\r\n.la-ball-clip-rotate > div {\r\n  position: relative;\r\n  -webkit-box-sizing: border-box;\r\n  -moz-box-sizing: border-box;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.la-ball-clip-rotate {\r\n  display: block;\r\n  font-size: 0;\r\n  color: #fff;\r\n}\r\n\r\n.la-ball-clip-rotate.la-dark {\r\n  color: #333;\r\n}\r\n\r\n.la-ball-clip-rotate > div {\r\n  display: inline-block;\r\n  float: none;\r\n  background-color: currentColor;\r\n  border: 0 solid currentColor;\r\n}\r\n\r\n.la-ball-clip-rotate {\r\n  width: 32px;\r\n  height: 32px;\r\n}\r\n\r\n.la-ball-clip-rotate > div {\r\n  width: 32px;\r\n  height: 32px;\r\n  background: transparent;\r\n  border-width: 2px;\r\n  border-bottom-color: transparent;\r\n  border-radius: 100%;\r\n  -webkit-animation: ball-clip-rotate 0.75s linear infinite;\r\n  -moz-animation: ball-clip-rotate 0.75s linear infinite;\r\n  -o-animation: ball-clip-rotate 0.75s linear infinite;\r\n  animation: ball-clip-rotate 0.75s linear infinite;\r\n}\r\n\r\n.la-ball-clip-rotate.la-sm {\r\n  width: 16px;\r\n  height: 16px;\r\n}\r\n\r\n.la-ball-clip-rotate.la-sm > div {\r\n  width: 16px;\r\n  height: 16px;\r\n  border-width: 1px;\r\n}\r\n\r\n.la-ball-clip-rotate.la-2x {\r\n  width: 64px;\r\n  height: 64px;\r\n}\r\n\r\n.la-ball-clip-rotate.la-2x > div {\r\n  width: 64px;\r\n  height: 64px;\r\n  border-width: 4px;\r\n}\r\n\r\n.la-ball-clip-rotate.la-3x {\r\n  width: 96px;\r\n  height: 96px;\r\n}\r\n\r\n.la-ball-clip-rotate.la-3x > div {\r\n  width: 96px;\r\n  height: 96px;\r\n  border-width: 6px;\r\n}\r\n\r\n/*\r\n * Animation\r\n */\r\n@-webkit-keyframes ball-clip-rotate {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n\r\n  50% {\r\n    -webkit-transform: rotate(180deg);\r\n    transform: rotate(180deg);\r\n  }\r\n\r\n  100% {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@-moz-keyframes ball-clip-rotate {\r\n  0% {\r\n    -moz-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n\r\n  50% {\r\n    -moz-transform: rotate(180deg);\r\n    transform: rotate(180deg);\r\n  }\r\n\r\n  100% {\r\n    -moz-transform: rotate(360deg);\r\n    transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@-o-keyframes ball-clip-rotate {\r\n  0% {\r\n    -o-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n\r\n  50% {\r\n    -o-transform: rotate(180deg);\r\n    transform: rotate(180deg);\r\n  }\r\n\r\n  100% {\r\n    -o-transform: rotate(360deg);\r\n    transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes ball-clip-rotate {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    -moz-transform: rotate(0deg);\r\n    -o-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n\r\n  50% {\r\n    -webkit-transform: rotate(180deg);\r\n    -moz-transform: rotate(180deg);\r\n    -o-transform: rotate(180deg);\r\n    transform: rotate(180deg);\r\n  }\r\n\r\n  100% {\r\n    -webkit-transform: rotate(360deg);\r\n    -moz-transform: rotate(360deg);\r\n    -o-transform: rotate(360deg);\r\n    transform: rotate(360deg);\r\n  }\r\n}\r\n";
 
   var spinnerTemplate = "<div class=\"la-ball-clip-rotate la-dark\">\r\n  <div></div>\r\n</div>";
+
+  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+  function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
   var _window = new WeakMap();
 
@@ -291,7 +292,15 @@
     return SpinnerComponent;
   }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
 
+  if (!window.customElements.get("yyui-spinner-component")) {
+    customElements.define("yyui-spinner-component", SpinnerComponent);
+  }
+
   var spinnerOverlayStyle = "/*\r\n    spinner.overlay.component\r\n*/\r\n:host {\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  position: fixed;\r\n  z-index: 9999;\r\n}\r\n\r\n:host(.spinner-overlay-default) {\r\n  background-color: rgba(0, 0, 0, 0.25);\r\n}\r\n";
+
+  function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+  function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
   var _window$1 = new WeakMap();
 
@@ -302,7 +311,7 @@
   var SpinnerOverlayComponent = /*#__PURE__*/function (_HTMLElement) {
     _inherits(SpinnerOverlayComponent, _HTMLElement);
 
-    var _super = _createSuper(SpinnerOverlayComponent);
+    var _super = _createSuper$1(SpinnerOverlayComponent);
 
     function SpinnerOverlayComponent() {
       var _this;
@@ -359,6 +368,10 @@
     return SpinnerOverlayComponent;
   }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
 
+  if (!window.customElements.get("yyui-spinner-overlay-component")) {
+    window.customElements.define("yyui-spinner-overlay-component", SpinnerOverlayComponent);
+  }
+
   var _window$2 = new WeakMap();
 
   var _document$2 = new WeakMap();
@@ -372,8 +385,6 @@
   var _create = new WeakMap();
 
   var _connect = new WeakMap();
-
-  var _register = new WeakMap();
 
   var Spinner = /*#__PURE__*/function () {
     function Spinner() {
@@ -446,24 +457,7 @@
         }
       });
 
-      _register.set(this, {
-        writable: true,
-        value: function value() {
-          if (!_classPrivateFieldGet(_this, _window$2).customElements.get("yy-spinner-component")) {
-            _classPrivateFieldGet(_this, _window$2).customElements.define("yy-spinner-component", SpinnerComponent);
-          }
-
-          if (_classPrivateFieldGet(_this, _options).overlay) {
-            if (!_classPrivateFieldGet(_this, _window$2).customElements.get("yy-spinner-overlay-component")) {
-              _classPrivateFieldGet(_this, _window$2).customElements.define("yy-spinner-overlay-component", SpinnerOverlayComponent);
-            }
-          }
-        }
-      });
-
       _classPrivateFieldSet(this, _options, Object.assign(_classPrivateFieldGet(this, _options), Spinner.options, options));
-
-      _classPrivateFieldGet(this, _register).call(this);
 
       _classPrivateFieldGet(this, _connect).call(this, _classPrivateFieldGet(this, _create).call(this));
 

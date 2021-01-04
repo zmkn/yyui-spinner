@@ -1,7 +1,7 @@
 import spinnerStyle from "./spinner.component.css";
 import spinnerTemplate from "./spinner.component.html";
 
-export class SpinnerComponent extends HTMLElement {
+class SpinnerComponent extends HTMLElement {
   #window = window;
   #document = this.#window.document;
 
@@ -34,3 +34,9 @@ export class SpinnerComponent extends HTMLElement {
     return this.parentNode;
   }
 }
+
+if (!window.customElements.get("yyui-spinner-component")) {
+  customElements.define("yyui-spinner-component", SpinnerComponent);
+}
+
+export { SpinnerComponent };

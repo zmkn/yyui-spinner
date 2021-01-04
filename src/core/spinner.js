@@ -54,26 +54,8 @@ export class Spinner {
     return spinnerElement;
   };
 
-  #register = () => {
-    if (!this.#window.customElements.get("yy-spinner-component")) {
-      this.#window.customElements.define(
-        "yy-spinner-component",
-        SpinnerComponent
-      );
-    }
-    if (this.#options.overlay) {
-      if (!this.#window.customElements.get("yy-spinner-overlay-component")) {
-        this.#window.customElements.define(
-          "yy-spinner-overlay-component",
-          SpinnerOverlayComponent
-        );
-      }
-    }
-  };
-
   constructor(options = {}) {
     this.#options = Object.assign(this.#options, Spinner.options, options);
-    this.#register();
     this.#connect(this.#create());
     Spinner.instanceAll.push(this);
   }

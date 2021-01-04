@@ -1,6 +1,6 @@
 import spinnerOverlayStyle from "./spinner.overlay.component.css";
 
-export class SpinnerOverlayComponent extends HTMLElement {
+class SpinnerOverlayComponent extends HTMLElement {
   #window = window;
   #document = this.#window.document;
 
@@ -27,3 +27,12 @@ export class SpinnerOverlayComponent extends HTMLElement {
     return this.parentNode;
   }
 }
+
+if (!window.customElements.get("yyui-spinner-overlay-component")) {
+  window.customElements.define(
+    "yyui-spinner-overlay-component",
+    SpinnerOverlayComponent
+  );
+}
+
+export { SpinnerOverlayComponent };

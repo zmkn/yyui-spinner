@@ -4,8 +4,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import { babel } from "@rollup/plugin-babel";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
+import rollupString from "rollup-string";
 import aliases from "./alias.js";
-import string from "./string.js";
 
 const resolve = p => {
   const base = p.split("/")[0];
@@ -18,34 +18,34 @@ const resolve = p => {
 
 const builds = {
   esm: {
-    input: resolve("core/spinner.js"),
+    input: resolve("core/index.js"),
     format: "esm",
     outputFile: resolve("dist/yyui.spinner.esm.js")
   },
   cjs: {
-    input: resolve("core/spinner.js"),
+    input: resolve("core/index.js"),
     format: "cjs",
     outputFile: resolve("dist/yyui.spinner.cjs.js")
   },
   umd: {
-    input: resolve("core/spinner.js"),
+    input: resolve("core/index.js"),
     format: "umd",
     outputFile: resolve("dist/yyui.spinner.js")
   },
   "esm-min": {
-    input: resolve("core/spinner.js"),
+    input: resolve("core/index.js"),
     format: "esm",
     outputFile: resolve("dist/yyui.spinner.esm.min.js"),
     plugins: [terser()]
   },
   "cjs-min": {
-    input: resolve("core/spinner.js"),
+    input: resolve("core/index.js"),
     format: "cjs",
     outputFile: resolve("dist/yyui.spinner.cjs.min.js"),
     plugins: [terser()]
   },
   "umd-min": {
-    input: resolve("core/spinner.js"),
+    input: resolve("core/index.js"),
     format: "umd",
     outputFile: resolve("dist/yyui.spinner.min.js"),
     plugins: [terser()]
@@ -59,7 +59,7 @@ const getConfig = name => {
     plugins: [
       nodeResolve(),
       commonjs(),
-      string(),
+      rollupString(),
       alias({
         entries: Object.assign({}, aliases)
       }),
@@ -71,8 +71,9 @@ const getConfig = name => {
     output: [
       {
         file: options.outputFile,
+        name: options.moduleName || "Spinner",
         format: options.format,
-        name: options.moduleName || "Spinner"
+        exports: "auto"
       }
     ]
   };
